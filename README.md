@@ -16,6 +16,34 @@ Links to the checkpoints can be found in the inference description below.
 
 ![](docs/diagram.png)
 
+### Docker
+
+It is recommended that you run hovernet inside a Docker container, especially if you're using shared resources like a GPU server. 
+you can do so:
+```buildoutcfg
+docker build -t imaging_docker:gpu_py36_cu90 -f Dockerfile .
+```
+Now you want to start a Docker container from your image, which is the virtual environment you will run your code in.
+```buildoutcfg
+nvidia-docker run -it -p <your port>:<exposed port> -v <your dir>:/<dirname inside docker> imaging_docker:gpu_py36_cu90 bash
+```
+
+If you look in the Dockerfile, you can see that there are two ports exposed, one is typically used for Jupyter (8888)
+and one for Tensorboard (6006). To be able to view these in your browser, you need map the port with the -p argument.
+The -v arguments similarly maps directories. You can use multiple -p and -v arguments if you want to map multiple things.
+The final 'bash' is to signify that you want to run bash (your usual Unix shell). 
+
+If you want to launch a Jupyter notebook inside your container, you can do so with the following command:
+```buildoutcfg
+jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser
+```
+Then you can access your notebooks in your browser at:
+```buildoutcfg
+http://<your server name (e.g. fry)>:<whatever port you mapped to when starting up docker>
+```
+You will need to copy/paste the token generated in your Docker container.
+
+
 ## Set Up Environment
 
 ```
