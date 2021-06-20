@@ -16,6 +16,10 @@ Links to the checkpoints can be found in the inference description below.
 
 ![](docs/diagram.png)
 
+
+### Fetch upstream occasionally from https://github.com/vqdang/hover_net.git
+git pull https://github.com/vqdang/hover_net.git master
+
 ### Docker
 
 It is recommended that you run hovernet inside a Docker container, especially if you're using shared resources like a GPU server. 
